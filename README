@@ -1,5 +1,0 @@
-We decided to design an API for an array datastructure:
-
-object.h:
-    This is the parent object class. 
-    -methods:
