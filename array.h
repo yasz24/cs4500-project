@@ -9,10 +9,6 @@
 */
 class ArrayObject : public Object {
 public:
-    Object **arr_; //owned. array of array of pointers to Objects
-    size_t length_; //the length of the array.
-    size_t last_idx_;  //the first unassigned idx in the array, from left to right.
-
     /**
 	 * Constructor.
 	*/
@@ -87,7 +83,7 @@ public:
      * arg i: the index of the element you want to replace. 
      * arg e: the element that you're replacing it with.
     */
-    virtual Object* set(size_t i, String* e) {
+    virtual Object* set(size_t i, Object* o) {
     }
 
     /**
@@ -108,12 +104,6 @@ public:
     */
     virtual bool contains(Object* e) {
     }
-
-    /**
-     * Private helper. resizes the internally owned char array, arr_.
-    */
-    void resize_() {
-    }
 };
 
 
@@ -123,10 +113,6 @@ public:
 */
 class ArrayString : public Object {
 public:
-    String **arr_; //owned. array of array of pointers to strings
-    size_t length_; //the length of the array.
-    size_t last_idx_;  //the first unassigned idx in the array, from left to right.
-
     /**
 	 * Constructor.
 	*/
@@ -221,11 +207,5 @@ public:
      * @arg e: The string you want to test for containment.
     */
     virtual bool contains(String* e) {
-    }
-
-    /**
-     * Private helper. resizes the internally owned char array, arr_.
-    */
-    void resize_() {
     }
 };

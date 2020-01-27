@@ -1,6 +1,5 @@
 #include "object.h"  // Your file with the CwC declaration of Object
 #include "string.h"  // Your file with the String class
-#include "list.h"    // Your file with the two list classes
 #include <stdio.h>
  
 void FAIL() {   exit(1);    }
