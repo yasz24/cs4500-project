@@ -1,5 +1,6 @@
 #include "object.h"  // Your file with the CwC declaration of Object
 #include "string.h"  // Your file with the String class
+#include "array.h"
 #include <stdio.h>
  
 void FAIL() {   exit(1);    }
@@ -18,7 +19,7 @@ void test1() {
 }
  
 void test2() {
-    ArrayObj * a = new ArrayObject();
+    ArrayObject * a = new ArrayObject();
     String * s = new String("Hello");
     String * t = new String("World");
     a->push_back(s);
@@ -32,11 +33,11 @@ void test3() {
   String * s = new String("Hello");
   String * t = new String("World");
   String * u = s->concat(t);
-  ArrayObj * l = new ArrayObject();
+  ArrayObject * l = new ArrayObject();
   l->push_back(s);
   l->push_back(t);
   l->push_back(u);
-  ArrayObj * l2 = new ArrayObject();
+  ArrayObject * l2 = new ArrayObject();
   l2->push_back(s);
   l2->push_back(t);
   l2->push_back(u);
@@ -50,11 +51,11 @@ void test4() {
   String * s = new String("Hello");
   String * t = new String("World");
   String * u = s->concat(t);
-  ArrayObj * l = new ArrayObject();
+  ArrayObject * l = new ArrayObject();
   l->push_back(s);
   l->push_back(t);
   l->push_back(u);
-  ArrayObj * l2 = new ArrayObject();
+  ArrayObject * l2 = new ArrayObject();
   l2->add_all(0,l);
   t_true(l->size() == l2->size());
   OK("4");
@@ -64,7 +65,7 @@ void test5() {
   String * s = new String("Hello");
   String * t = new String("World");
   String * u = s->concat(t);
-  ArrayObj * l = new ArrayObject();
+  ArrayObject * l = new ArrayObject();
   l->push_back(s);
   l->push_back(t);
   l->add(1, u);
@@ -78,7 +79,10 @@ void test6() {
     String * s = new String("Hello");
     String * t = new String("World");
     String * u = s->concat(t);
-    ArrayObj * l = new ArrayObject();
+    ArrayObject * l = new ArrayObject();
+    l->push_back(s);
+    l->push_back(t);
+    l->push_back(u);
     t_true(l->size() == 3);
     l->clear();
     t_true(l->size() == 0);
@@ -99,11 +103,11 @@ void test8() {
   String * s = new String("Hello");
   String * t = new String("World");
   String * u = s->concat(t);
-  ArrayObj * l = new ArrayObject();
+  ArrayObject * l = new ArrayObject();
   l->push_back(s);
   l->push_back(t);
   t_true(l->get(0)->equals(s));
-  t_true(l->get(1)->equals(u));
+  t_true(l->get(1)->equals(t));
   l->set(1, u);
   t_true(l->get(0)->equals(s));
   t_true(l->get(1)->equals(u));
@@ -114,7 +118,7 @@ void test9() {
   String * s = new String("Hello");
   String * t = new String("World");
   String * u = s->concat(t);
-  ArrayObj * l = new ArrayObject();
+  ArrayObject * l = new ArrayObject();
   l->push_back(s);
   l->push_back(t);
   l->push_back(u);
@@ -131,7 +135,7 @@ void test10() {
   String * s = new String("Hello");
   String * t = new String("World");
   String * u = s->concat(t);
-  ArrayObj * l = new ArrayObject();
+  ArrayObject * l = new ArrayObject();
   l->push_back(s);
   l->push_back(t);
   l->push_back(u);
@@ -153,7 +157,7 @@ void test11() {
   String * s = new String("Hello");
   String * t = new String("World");
   String * u = s->concat(t);
-  ArrayObj * l = new ArrayObject();
+  ArrayObject * l = new ArrayObject();
   l->push_back(s);
   l->push_back(t);
   l->push_back(u);
@@ -229,6 +233,9 @@ void test16() {
     String * t = new String("World");
     String * u = s->concat(t);
     ArrayString * l = new ArrayString();
+    l->push_back(s);
+    l->push_back(t);
+    l->add(1, u);
     t_true(l->size() == 3);
     l->clear();
     t_true(l->size() == 0);
@@ -253,7 +260,7 @@ void test18() {
   l->push_back(s);
   l->push_back(t);
   t_true(l->get(0)->equals(s));
-  t_true(l->get(1)->equals(u));
+  t_true(l->get(1)->equals(t));
   l->set(1, u);
   t_true(l->get(0)->equals(s));
   t_true(l->get(1)->equals(u));
