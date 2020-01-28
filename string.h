@@ -20,7 +20,8 @@ public:
 	*/
 	String(char* c) {
 	    size_ = strlen(c);
-	    val_ = new char[size_];
+	    val_ = new char[size_ + 1];
+	    strcpy(val_, c);
 	}
 
 	/**
@@ -63,9 +64,12 @@ public:
 	 * @arg s: the String you want to concatenate. 
 	*/
     virtual String* concat(String *s) {
-        char* str = strcat(val_, s->val_);
+        char* str = new char[size_ + s->size_ + 1];
+        strcpy(str, val_);
+        strcat(str, s->val_);
+
         String* newStr = new String(str);
-        free(str);
+        delete [] str;
 
         return newStr;
     }

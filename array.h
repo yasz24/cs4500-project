@@ -53,11 +53,15 @@ public:
      * @arg e: the Object to be appended.
     */
     virtual void add(size_t i, Object* e) {
-        assert(i > 0 && i < _length);
+        assert(i >= 0 && i <= _length);
         _expandIfNeeded();
-        for (size_t index = _length; index > i; index--) {
-            _storage[index] = _storage[index - 1];
+
+        if (i != _length) {
+            for (size_t index = _length; index > i; index--) {
+                _storage[index] = _storage[index - 1];
+            }
         }
+
         _storage[i] = e;
         _length += 1;
     }
@@ -68,15 +72,17 @@ public:
      * @arg e: the List of Objects to be appended.
     */
     virtual void add_all(size_t i, ArrayObject* c) {
-        assert(i > 0 && i < _length);
-        size_t requiredCapacity = _length += c->_length;
+        assert(i >= 0 && i <= _length);
+        size_t requiredCapacity = _length + c->_length;
         if (requiredCapacity > _capacity) {
             _capacity = requiredCapacity;
             _reallocateStorage();
         }
 
-        for (size_t index = _length - 1; index <= i; index--) {
-            _storage[index + c->_length] = _storage[index];
+        if (i != _length) {
+            for (size_t index = _length - 1; index <= i; index--) {
+                _storage[index + c->_length] = _storage[index];
+            }
         }
 
         for (size_t index = i; index < c->_length; index++) {
@@ -99,7 +105,9 @@ public:
         ArrayObject* array = dynamic_cast<ArrayObject*>(o);
         if (array && array->_length == _length) {
             for (size_t i = 0; i < _length; i++) {
-                if (!array->_storage[i]->equals(_storage[i])) { return false; }
+                if (!array->_storage[i]->equals(_storage[i])) {
+                    return false;
+                }
             }
             return true;
         }
@@ -111,7 +119,7 @@ public:
      * arg index: the index of the element that you want.
     */
     virtual Object* get(size_t index) {
-        assert(index > 0 && index < _length);
+        assert(index >= 0 && index < _length);
         return _storage[index];
     }
 
@@ -140,7 +148,7 @@ public:
      * arg i: the index of the element you want to remove. 
     */
     virtual Object* remove(size_t i) {
-        assert(i > 0 && i < _length);
+        assert(i >= 0 && i < _length);
         Object* removed = _storage[i];
 
         for (size_t index = i; index < _length - 1; index++) {
@@ -156,8 +164,11 @@ public:
      * arg e: the element that you're replacing it with.
     */
     virtual Object* set(size_t i, Object* o) {
-        assert(i > 0 && i < _length);
+        assert(i >= 0 && i < _length);
+        Object* replacing = _storage[i];
         _storage[i] = o;
+
+        return replacing;
     }
 
     /**
@@ -237,7 +248,8 @@ public:
      * arg o: the Object you're testing equality against.
     */
     virtual bool equals(Object* o) {
-        return _array.equals(o);
+        ArrayString* other = dynamic_cast<ArrayString*>(o);
+        return other ? _array.equals(&other->_array) : false;
     }
 
     /**
@@ -277,7 +289,7 @@ public:
      * arg e: the element that you're replacing it with.
     */
     virtual String* set(size_t i, String* e) {
-        _array.set(i, e);
+        return dynamic_cast<String*>(_array.set(i, e));
     }
 
     /**
