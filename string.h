@@ -18,7 +18,7 @@ public:
 	 * Constructor.
 	 * @arg c: the character array.  
 	*/
-	String(char* c) {
+	String(const char* c) {
 	    size_ = strlen(c);
 	    val_ = new char[size_ + 1];
 	    strcpy(val_, c);
@@ -73,6 +73,9 @@ public:
 
         return newStr;
     }
+
+    // compares the strings based on alphabetical order
+    virtual int cmp(String *that) { return compare(that); }
 
 	/**
 	 * Destructor for this String class.

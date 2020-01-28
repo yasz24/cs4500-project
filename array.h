@@ -22,6 +22,10 @@ public:
 	*/
     ArrayObject() {}
 
+    /**
+     * Reallocates the buffer to be of size _capacity and then copies all of the elements currently in the array
+     * to the new buffer.
+     */
     void _reallocateStorage() {
         Object** newStorage = new Object*[_capacity];
         memcpy(newStorage, _storage, sizeof(Object*) * _length);
@@ -30,6 +34,9 @@ public:
         _storage = newStorage;
     }
 
+    /**
+     * Doubles the size of the array if it is full
+     */
     void _expandIfNeeded() {
         if (_length == _capacity) {
             _capacity *= 2;
