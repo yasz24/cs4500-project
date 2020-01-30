@@ -370,7 +370,7 @@ public:
      * Returns the index of the first occurrence of o, or >size() if not there
      * arg o: the Object that you want the index for.
     */
-    virtual size_t index_of(Object* o) {
+    virtual size_t index_of(float o) {
     }
 
     /**
@@ -385,7 +385,7 @@ public:
      * arg i: the index of the element you want to replace. 
      * arg e: the element that you're replacing it with.
     */
-    virtual float set(size_t i, Object* o) {
+    virtual float set(size_t i, float o) {
     }
 
     /**
@@ -484,7 +484,7 @@ public:
      * arg i: the index of the element you want to replace. 
      * arg e: the element that you're replacing it with.
     */
-    virtual bool set(size_t i, Object* o) {
+    virtual bool set(size_t i, bool o) {
     }
 
     /**
